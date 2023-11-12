@@ -1,14 +1,25 @@
 from time import perf_counter
 
 import boto3
+from botocore.client import BaseClient
 
-LOCAL_PATH = (
+LOCAL_PATH: str = (
     "/Users/eliasbenaddouidrissi/Desktop/dev/repos/python-s3-threading-examples/"
 )
-BUCKET_NAME = "s3-threading-examples"
+BUCKET_NAME: str = "s3-threading-examples"
 
 
-def upload_object(s3_client, file_name):
+def upload_object(s3_client: BaseClient, file_name: str) -> str:
+    """
+    Uploads a file to an S3 bucket.
+
+    Args:
+        s3_client (BaseClient): An instance of the boto3 S3 client.
+        file_name (str): The name of the file to upload.
+
+    Returns:
+        str: A message indicating that the file has been uploaded.
+    """
     print(f"Uploading {file_name}")
     upload_filename = f"{LOCAL_PATH}/{file_name}"
     s3_client.upload_file(
